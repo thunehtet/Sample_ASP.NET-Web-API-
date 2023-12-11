@@ -4,6 +4,8 @@ using SampleProject.Data;
 using SampleProject.Configuration;
 using SampleProject.Contracts;
 using SampleProject.Repository;
+using HotelListing.API.Core.Contracts;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,11 +28,17 @@ builder.Services.AddCors(options =>
         .AllowAnyMethod());
 });
 
+builder.Services.AddIdentityCore<ApiUser>()
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<HotelListingDbContext>();
+
 builder.Services.AddAutoMapper(typeof(MapperConfig));
 builder.Host.UseSerilog((ctx,lc)=>lc.WriteTo.Console().ReadFrom.Configuration(ctx.Configuration));
 
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped<ICountriesRepository,CountriesRepository>();
+builder.Services.AddScoped<IHotelsRepository,HotelsRepository>();
+builder.Services.AddScoped<IAuthManager, AuthManager>();
 
 
 var app = builder.Build();

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using SampleProject.Data;
+using SampleProject.Models;
 using SampleProject.Models.Country;
 using SampleProject.Models.Hotel;
 
@@ -15,6 +16,8 @@ namespace SampleProject.Configuration
             CreateMap<Country, UpdateCountry>().ReverseMap();
 
             CreateMap<Hotel, HotelDto>().ReverseMap();
+
+            CreateMap<ApiUserDto, ApiUser>().ReverseMap();
 
         }
     }

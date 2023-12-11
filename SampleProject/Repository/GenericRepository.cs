@@ -10,6 +10,12 @@ namespace SampleProject.Repository
     {
         private readonly HotelListingDbContext _context;
         private readonly IMapper _mapper;
+        private HotelListingDbContext context;
+
+        public GenericRepository(HotelListingDbContext context)
+        {
+            this.context = context;
+        }
 
         public GenericRepository(HotelListingDbContext context, IMapper mapper)
         {
